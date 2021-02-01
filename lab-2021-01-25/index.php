@@ -48,29 +48,21 @@ if (isset($_POST) && isset($_POST['name']) && isset($_POST['position'])) {
         <input type="text" name="position" required />
         <input type="submit" />
     </form>
-    <?php
-    if (isset($db) && isset($db['data'])) {
-    ?>
+    <?php if (isset($db) && isset($db['data'])) { ?>
     <table>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Position</th>
         </tr>
-        <?php
-        foreach ($db['data'] as $data) {
-        ?>
+        <?php foreach ($db['data'] as $data) { ?>
         <tr>
             <td><?php echo $data['id']?></td>
             <td><?php echo $data['name']?></td>
             <td><?php echo $data['position']?></td>
         </tr>
-        <?php
-        }
-        ?>
+        <?php } ?>
     </table>
-    <?php
-    }
-    ?>
+    <?php } ?>
 </body>
 </html>
