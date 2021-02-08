@@ -1,0 +1,1 @@
+<p class="font-weight-bold"><?php echo $context['text'] ?></p>
