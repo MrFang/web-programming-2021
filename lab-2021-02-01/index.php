@@ -15,7 +15,8 @@ if (isset($_POST) && isset($_POST['name']) && isset($_POST['position'])) {
         mysql_query(
             "UPDATE {$table_name} SET ".
             "name = '{$_POST['name']}', ".
-            "position = '{$_POST['position']}'",
+            "position = '{$_POST['position']}'".
+            "WHERE id={$_POST['id']}",
             $conn
         );
     } else {
