@@ -18,7 +18,7 @@ const exportToSpreadsheet = (data, fileName) => {
 
 
 $('#export-button').on('click', () => {
-    fetch(`${window.location.origin}/PSTGU/2019/zolotukhin/2021/lab-2021-02-15/api.php`)
-        .then(resp => resp.json())
-        .then(json => exportToSpreadsheet(json.data))
+  fetch(`${window.location.origin}/PSTGU/2019/zolotukhin/2021/lab-2021-02-15/api.php`)
+    .then(resp => resp.json())
+    .then(json => exportToSpreadsheet(json.data))
 })
