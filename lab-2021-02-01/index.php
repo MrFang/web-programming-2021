@@ -1,9 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-$conn = mysql_connect("localhost", "zolotukhin", "fn9k5dkF");
-mysql_set_charset('utf8');
-mysql_select_db('zolotukhin', $conn);
+$conn = mysqli_connect('localhost', 'zolotukhin', 'fn9k5dkF', 'zolotukhin');
+mysqli_set_charset($conn, 'utf8');
 
 $table_name = 'lab_2021_02_01__users';
 $editPage = false;
@@ -12,31 +11,31 @@ $URL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 
 if (isset($_POST) && isset($_POST['name']) && isset($_POST['position'])) {
     if (isset($_GET['edit']) && isset($_POST['id'])) {
-        mysql_query(
+        mysqli_query(
+            $conn,
             "UPDATE {$table_name} SET ".
             "name = '{$_POST['name']}', ".
             "position = '{$_POST['position']}'".
-            "WHERE id={$_POST['id']}",
-            $conn
+            "WHERE id={$_POST['id']}"
         );
     } else {
-        mysql_query(
+        mysqli_query(
+            $conn,
             "INSERT INTO {$table_name} (name, position) ".
-            "VALUES ('{$_POST['name']}', '{$_POST['position']}')",
-            $conn
+            "VALUES ('{$_POST['name']}', '{$_POST['position']}')"
         );
     }
 } else if (isset($_GET['edit']) && isset($_GET['id'])) {
     $editPage = true;
 } else if (isset($_GET['delete']) && isset($_GET['id'])) {
-    mysql_query("DELETE FROM {$table_name} WHERE id = {$_GET['id']}", $conn);
+    mysqli_query($conn, "DELETE FROM {$table_name} WHERE id = {$_GET['id']}");
 }
 
 if ($editPage) {
-    $user = mysql_fetch_array(mysql_query("SELECT * FROM {$table_name} WHERE id = {$_GET['id']}", $conn));
+    $user = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM {$table_name} WHERE id = {$_GET['id']}"));
 }
 
-$allUsers = mysql_query("SELECT * FROM {$table_name}", $conn);
+$allUsers = mysqli_query($conn, "SELECT * FROM {$table_name}");
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +68,7 @@ $allUsers = mysql_query("SELECT * FROM {$table_name}", $conn);
             <th></th>
             <th></th>
         </tr>
-        <?php while ($row = mysql_fetch_array($allUsers)) { ?>
+        <?php while ($row = mysqli_fetch_array($allUsers)) { ?>
         <tr>
             <td><?php echo $row['id']?></td>
             <td><?php echo $row['name']?></td>
@@ -83,6 +82,6 @@ $allUsers = mysql_query("SELECT * FROM {$table_name}", $conn);
 </html>
 
 <?php
-mysql_free_result($allUsers);
-mysql_close($conn);
+mysqli_free_result($allUsers);
+mysqli_close($conn);
 ?>
